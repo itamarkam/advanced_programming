@@ -28,9 +28,16 @@ AttackResult BattleshipPlayer::opponentMove(std::pair<int, int> move, int* score
 		return AttackResult::Miss;
 	}
 
-	it->second->hit();
-	if (it->second->isSunk()) {
-		*score += it->second->getValue();  // value for sinking ship
+	// HIT!
+	// reference to battleship for after deletion of pointer
+	Battleship& B = *(it->second);
+
+	// remove <move> from hits_
+	hits_.erase(it);
+
+	B.hit();
+	if (B.isSunk()) {
+		*score += B.getValue();  // value for sinking ship
 		n_ships_--;  // one less ship
 		return AttackResult::Sink;
 	}
