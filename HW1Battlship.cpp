@@ -15,13 +15,13 @@ int main()
 
 	BattleshipPlayer A(0), B(1);
 	// A.setBoard(...), B.setBoard(...)
-	while (A.isAlive()) {
+	while (A.isAlive() && B.isAlive()) {
 		// A's move
 		makeMove(A, B);
 
-		if (B.isAlive()) {
+		if (A.isAlive() && B.isAlive()) {
 			// B's move
-			makeMove(A, B);
+			makeMove(B, A);
 		}
 	}
 
@@ -37,6 +37,10 @@ int main()
 void MakeMove(BattleshipPlayer& active, BattleshipPlayer& passive) {
 	std::pair<int, int> move = active.attack();
 	AttackResult res = passive.opponentMove(move, &(active.score));
+
+	if (res == AttackResult::Miss) { // check for self hit
+		res = active.opponentMove(move, &(passive.score));
+	}
 	active.notifyOnAttackResult(active.getId(), move.first, move.second, res);
 	passive.notifyOnAttackResult(active.getId(), move.first, move.second, res);
 }
