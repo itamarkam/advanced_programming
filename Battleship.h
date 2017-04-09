@@ -3,21 +3,24 @@
 #include <utility>
 #include <map>
 
+#include "BattleshipPlayer.h"
+
 enum class BattleshipType {
 	B, P, M, D
 };
 
 class Battleship {
 public:
-	Battleship(BattleshipType t);
+	Battleship(BattleshipType t, BattleshipPlayer* owner);
+	Battleship* owner();
 	void hit();
 	bool isSunk();
 	int getValue();
 
 private:
+	BattleshipPlayer* owner_;
 	int size_;
 	int value_;
-	int hits_ = 0;
 };
 
 static const std::map<BattleshipType, std::pair<int, int>> battleship_details_ = {

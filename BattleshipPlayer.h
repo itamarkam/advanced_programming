@@ -7,29 +7,24 @@
 
 #include "c:\Users\kamin\Desktop\IBattleshipGameAlgo.h"
 #include "Battleship.h"
+#include "IBattleshipGameAlgo.h"
 
 class BattleshipPlayer : public IBattleshipGameAlgo {
 public:
 	BattleshipPlayer(int id);
-
+	// Algorithm methods
 	void setBoard(const char** board, int numRows, int numCols); // called once to notify player on his board
-
 	std::pair<int, int> attack(); // ask player for his move
-
 	void notifyOnAttackResult(int player, int row, int col, AttackResult result); // notify on last move result
 
-	AttackResult opponentMove(std::pair<int, int> move, int* score);
-
 	int getId();
-
 	bool isAlive();
-
-	int score = 0;
-
+	void addBattleship(Battleship& battleship);
+	int getScore();
+	void addPoints(int points);
 private:
 	int id_;
+	int score = 0;
 	std::vector<Battleship> battleships_;
-	std::map<std::pair<int, int>, Battleship*> hits_;
-	std::queue<std::pair<int, int>> moves_;
-	int n_ships_;
+	IBattleshipGameAlgo algo_;
 };

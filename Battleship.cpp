@@ -1,15 +1,14 @@
 #include "Battleship.h"
 
-Battleship::Battleship(BattleshipType t)
-	: size_(battleship_details_.find(t)->second.first),
+Battleship::Battleship(BattleshipType t, int owner)
+	: owner_(owner), size_(battleship_details_.find(t)->second.first),
 	value_(battleship_details_.find(t)->second.second) {}
 
+BattleshipPlayer* Battleship::owner() { return owner_; }
 
-void Battleship::hit() { hits_--; }
+void Battleship::hit() { size_--; }
 
-
-bool Battleship::isSunk() { return hits_ == size_; }
-
+bool Battleship::isSunk() { return size_ > 0; }
 
 int Battleship::getValue() { return value_; }
 
