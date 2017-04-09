@@ -1,6 +1,6 @@
 #include "Battleship.h"
 
-Battleship::Battleship(BattleshipType t, int owner)
+Battleship::Battleship(BattleshipType t, BattleshipPlayer* owner)
 	: owner_(owner), size_(battleship_details_.find(t)->second.first),
 	value_(battleship_details_.find(t)->second.second) {}
 

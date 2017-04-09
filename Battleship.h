@@ -12,7 +12,7 @@ enum class BattleshipType {
 class Battleship {
 public:
 	Battleship(BattleshipType t, BattleshipPlayer* owner);
-	Battleship* owner();
+	BattleshipPlayer* owner();
 	void hit();
 	bool isSunk();
 	int getValue();

@@ -2,18 +2,18 @@
 
 #include "BattleshipPlayer.h"
 
-BattleshipPlayer::BattleshipPlayer(int id) : id_(id) {}
+BattleshipPlayer::BattleshipPlayer(int id, IBattleshipGameAlgo* algo) : id_(id), algo_(algo) {}
 
 void BattleshipPlayer::setBoard(const char** board, int numRows, int numCols) {
-	algo_.setBoard(board, numRows, numCols);
+	algo_->setBoard(board, numRows, numCols);
 }
 
 std::pair<int, int> BattleshipPlayer::attack() {
-	return algo_.attack();
+	return algo_->attack();
 }
 
 void BattleshipPlayer::notifyOnAttackResult(int player, int row, int col, AttackResult result) {
-	algo_.notifyOnAttackResult(player, row, col);
+	algo_->notifyOnAttackResult(player, row, col, result);
 }
 
 int BattleshipPlayer::getId() { return id_; }
@@ -24,6 +24,6 @@ void BattleshipPlayer::addBattleship(Battleship& battleship) {
 	battleships_.emplace_back(battleship);
 }
 
-int getScore() { return score_; }
+int BattleshipPlayer::getScore() { return score_; }
 
-void addPoints(int points) { score_ += points; }
+void BattleshipPlayer::addPoints(int points) { score_ += points; }

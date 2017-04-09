@@ -5,13 +5,13 @@
 #include <vector>
 #include <queue>
 
-#include "c:\Users\kamin\Desktop\IBattleshipGameAlgo.h"
+#include "IBattleshipGameAlgo.h"
 #include "Battleship.h"
 #include "IBattleshipGameAlgo.h"
 
-class BattleshipPlayer : public IBattleshipGameAlgo {
+class BattleshipPlayer {
 public:
-	BattleshipPlayer(int id);
+	BattleshipPlayer(int id, IBattleshipGameAlgo* algo);
 	// Algorithm methods
 	void setBoard(const char** board, int numRows, int numCols); // called once to notify player on his board
 	std::pair<int, int> attack(); // ask player for his move
@@ -24,7 +24,7 @@ public:
 	void addPoints(int points);
 private:
 	int id_;
-	int score = 0;
+	int score_ = 0;
 	std::vector<Battleship> battleships_;
-	IBattleshipGameAlgo algo_;
+	IBattleshipGameAlgo* algo_;
 };
